@@ -10,10 +10,10 @@ const port=8000;
 app.use(express.urlencoded())
 app.use(cookieParser())
 app.use(express.static("./assets"))
-// app.use(expressLayouts)
+app.use(expressLayouts)
 
-// app.set('layout extractStyles',true);
-// app.set('layout extractScripts',true);
+app.set('layout extractStyles',true);
+app.set('layout extractScripts',true);
 
 app.use('/',require('./routes'))
 

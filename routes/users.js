@@ -7,5 +7,6 @@ router.get('/profile',userController.profile)
 router.get('/posts',userController.posts)
 router.post('/create',userController.create)
 router.post('/createSession',userController.createSession)
+router.get('/signout',userController.signout)
 
 module.exports=router
