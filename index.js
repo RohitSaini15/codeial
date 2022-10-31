@@ -5,7 +5,8 @@ const expressLayouts=require('express-ejs-layouts')
 const cookieParser=require('cookie-parser')
 const session=require("express-session");
 const passport=require("./config/passport-local-strategy")
-require('./config/mongoose')
+const mongoose=require('./config/mongoose')
+const MongoStore=require("connect-mongo")
 
 const port=8000;
 
@@ -18,6 +19,8 @@ app.use(expressLayouts)
 app.set('layout extractStyles',true);
 app.set('layout extractScripts',true);
 
+
+// mongostore is use to store session
 app.use(session({
     name:"codeial",
     secret:"blahsomething",
@@ -25,7 +28,11 @@ app.use(session({
     resave:false,
     cookie:{
         maxAge:(1000*60*100)
-    }
+    },
+    store:MongoStore.create({
+        client:mongoose.connection.getClient(),
+        autoRemove:'disabled'
+    })
 }))
 
 app.use(passport.initialize())
