@@ -11,3 +11,14 @@ module.exports.signin=function(req,res){
     }
     res.render('signin',{title:"sign in"})
 }
+
+module.exports.signout=function(req,res){
+    req.logout((err)=>{
+        if(err){
+            console.log("error in logout")
+            return res.redirect('/');
+        }
+
+        return res.redirect("/auth/signin")
+    });
+}
