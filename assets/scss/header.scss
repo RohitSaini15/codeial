@@ -1,0 +1,14 @@
+header{
+    display: flex;
+    justify-content: space-between;
+    background-color: aqua;
+    ul{
+        display: flex;
+        padding:0;
+
+        li{
+            margin-left:1rem;
+            margin-right: 1rem;
+        }
+    }
+}

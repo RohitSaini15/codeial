@@ -1,4 +1,24 @@
 <link rel="stylesheet" href="/css/home_page.css">
 <h1>Hello <%= title %></h1>
 
-        
+<section>
+    <% if(locals.user) {%>
+        <form action="/post/create" method="Post">
+            <textarea name="content" rows="3" cols="30" placeholder="Enter the text"></textarea>
+            <input type="submit" value="Post">
+        </form>
+    <% } %>
+</section>
+
+<section>
+    <ul type="none">
+            <% for(let post of posts){ %>
+                <li>
+                    <%= post.content %><br> 
+                    <small><%= post.user.name %></small>
+                    <br><br>
+                </li>
+            <% } %>
+    </ul>
+</section>
+

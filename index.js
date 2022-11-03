@@ -8,7 +8,17 @@ const passport=require("./config/passport-local-strategy")
 const mongoose=require('./config/mongoose')
 const MongoStore=require("connect-mongo")
 
+const sassMiddleware=require("node-sass-middleware")
+
 const port=8000;
+
+app.use(sassMiddleware({
+    src:"./assets/scss",
+    dest:"./assets/css",
+    debug:true, // to show the error if error occured in compiling
+    outputStyle:"extended", // show the output in line by line format not in a one line(in css file)
+    prefix:"/css" //// Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
+}))
 
 app.use(express.urlencoded())
 // app.use(cookieParser())

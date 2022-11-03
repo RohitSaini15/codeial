@@ -1,5 +1,6 @@
 const passport=require('passport')
 const LocalStrategy=require('passport-local')
+const Post=require("../models/post")
 
 const User=require('../models/user')
 
@@ -51,8 +52,8 @@ passport.setAuthenticatedUser=function(req,res,next){
         // req.user contains the current signed in user from the session cookie and we are just sending this to the locals for the views
         res.locals.user=req.user;
     }
-
-    next();
+    
+    next()
 }
 
 module.exports=passport

@@ -18,7 +18,6 @@ module.exports.signout=function(req,res){
             console.log("error in logout")
             return res.redirect('/');
         }
-
         return res.redirect("/auth/signin")
     });
 }

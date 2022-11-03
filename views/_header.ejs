@@ -1,13 +1,14 @@
-<header>
-    Page Header
 
+<link rel="stylesheet" href="/css/header.css">
+<header>
+    <h4>Codeial</h4>
     <% if(locals.user){%>
-        <ul>
+        <ul type="none">
             <li><a href="/users/profile"><%= user.name %></a></li>
             <li><a href="/auth/signout">Sign Out</a></li>
         </ul>
     <%} else{%>
-        <ul>
+        <ul type="none">
             <li><a href="/auth/signin">Sign In</a></li>
             <li><a href="/auth/signup">Sign Up</a></li>
         </ul>

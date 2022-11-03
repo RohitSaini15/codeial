@@ -1,0 +1,10 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  background-color: aqua; }
+  header ul {
+    display: flex;
+    padding: 0; }
+    header ul li {
+      margin-left: 1rem;
+      margin-right: 1rem; }
