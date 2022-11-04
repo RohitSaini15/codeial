@@ -16,6 +16,26 @@
                 <li>
                     <%= post.content %><br> 
                     <small><%= post.user.name %></small>
+
+                    <div id="comments">
+                        <p>Comments</p>
+                        <ul type="none">
+                            <% for(let comment of post.comments) { %>
+                                    <li>
+                                        <%= comment.content %>
+                                        <br>
+                                        <%= comment.user.name %>
+                                        <br><br>
+                                    </li>
+                            <% } %>
+                        </ul>
+                    </div>
+                    <% if(locals.user) {%>
+                        <form action="/comment/create?post_id=<%= post._id %>" method="Post">
+                            <textarea name="content" rows="3" cols="30" placeholder="Enter the Comment"></textarea>
+                            <input type="submit" value="Comment">
+                        </form>
+                    <% } %>
                     <br><br>
                 </li>
             <% } %>
