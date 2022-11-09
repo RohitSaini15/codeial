@@ -1,0 +1,19 @@
+<% if(user.id == individual_user.id) { %>
+    
+    <form action="/users/update/<%= individual_user.id %>" method="POST">
+        <label for="name">Name</label>
+        <input id="name" type="text" value= "<%= individual_user.name %>" name="name">
+
+        <br><br>
+
+        <label for="email">Email</label>
+        <input id="email" type="text" value= "<%= individual_user.email %>" name="email">
+
+        <br><br>
+        <input type="submit" value="Update">
+    </form>
+
+<% } else { %>
+    <p> <%= individual_user.name %> </p>
+    <p> <%= individual_user.email %> </p>
+<% } %>

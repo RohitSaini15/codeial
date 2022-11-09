@@ -18,6 +18,7 @@ module.exports.signout=function(req,res){
             console.log("error in logout")
             return res.redirect('/');
         }
+        req.flash("success","You have logged out! ")
         return res.redirect("/auth/signin")
     });
 }

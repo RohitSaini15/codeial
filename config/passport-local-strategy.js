@@ -14,7 +14,7 @@ passport.use(new LocalStrategy({
                 console.log("error in authentication ",err);
                 return done(err,false);
             }
-
+            
             if(!user || user.password!=password){
                 console.log("Invalid username and password")
                 return done(null,false)
@@ -26,10 +26,13 @@ passport.use(new LocalStrategy({
 )
 
 passport.serializeUser((user,done)=>{
+    console.log("serialize User")
+    // console.log(user.id,user._id)
     done(null,user.id)
 })
 
 passport.deserializeUser((id,done)=>{
+    console.log("deserialize User")
      User.findById(id,(err,user)=>{
         if(err){
             console.log("error occured in deserialzing ")
@@ -48,6 +51,7 @@ passport.checkAuthentication=function(req,res,next){
 }
 
 passport.setAuthenticatedUser=function(req,res,next){
+    // console.log(req.session,req.user)
     if(req.isAuthenticated()){
         // req.user contains the current signed in user from the session cookie and we are just sending this to the locals for the views
         res.locals.user=req.user;
