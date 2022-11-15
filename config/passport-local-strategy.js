@@ -6,17 +6,17 @@ const User=require('../models/user')
 
 passport.use(new LocalStrategy({
     usernameField:"email",
+    passReqToCallback:true
     },
-    (email,password,done)=>{
-        console.log(email,password)
+    (req,email,password,done)=>{
         User.findOne({"email":email},(err,user)=>{
             if(err){ 
-                console.log("error in authentication ",err);
+                req.flash("error",err)
                 return done(err,false);
             }
             
             if(!user || user.password!=password){
-                console.log("Invalid username and password")
+                req.flash("error","Invalid username/password !")
                 return done(null,false)
             }
 
@@ -54,7 +54,7 @@ passport.setAuthenticatedUser=function(req,res,next){
     // console.log(req.session,req.user)
     if(req.isAuthenticated()){
         // req.user contains the current signed in user from the session cookie and we are just sending this to the locals for the views
-        res.locals.user=req.user;
+        res.locals.user = req.user;
     }
     next()
 }

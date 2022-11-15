@@ -1,3 +1,4 @@
+const e = require("connect-flash")
 const Comment=require("../models/comment")
 const Post=require("../models/post")
 
@@ -10,10 +11,25 @@ module.exports.createComment=async function(req,res){
             post:req.query.post_id
         })
 
+        await comment.populate("user")
+
         let result=await Post.updateOne({"_id":req.query.post_id},{"$push":{"comments":[comment._id]}})
 
+        if(req.xhr){
+            // req.flash("success","Comment created !")
+            return res.status(200).json({
+                data:{
+                    comment:comment
+                },
+                message:"Comment created !"
+            })
+        }
+
+        req.flash("success","Comment created !")
+
     } catch(err){
-        console.log("error occured in creating comment ",err)
+        console.log(err)
+        req.flash("error",err)
     }
 
     res.redirect("back")
@@ -26,9 +42,23 @@ module.exports.deleteComment=async function(req,res){
         if(req.user.id == comment.user){
             await comment.deleteOne()
             let result=await Post.updateOne({"_id":comment.post},{"$pull":{"comments":req.params.id}})
+
+            if(req.xhr){
+                // req.flash("success","Comment deleted !")
+                return res.status(200).json({
+                    data:{
+                        comment_id:req.params.id
+                    },
+                    message:"Comment deleted !"
+                })
+            }
+
+            req.flash("success","Comment deleted !")
+        } else{
+            req.flash("error","You are not authorized to delete comment !")
         }
     } catch(err){
-        console.log("error ocurrend in deleting comment id in post ",err)
+        req.flash("error",err)
     }
 
     res.redirect("back")

@@ -2,6 +2,7 @@
     <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="/css/layout.css">
         <%- style %>
     </head>
@@ -20,6 +21,16 @@
                     theme: 'sunset',
                     text: '<%= flash.success[0] %>',
                     type:"success",
+                    layout:"topRight",
+                    timeout:1500
+                }).show();    
+            <% } %>
+
+            <% if(flash.error && flash.error.length > 0) {%>
+                new Noty({
+                    theme: 'sunset',
+                    text: '<%= flash.error[0] %>',
+                    type:"error",
                     layout:"topRight",
                     timeout:1500
                 }).show();    

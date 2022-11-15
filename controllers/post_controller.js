@@ -4,12 +4,22 @@ const Comment=require("../models/comment")
 module.exports.createPost=async function(req,res){
     try{
         let post=await Post.create({content:req.body.content,user:req.user._id})
-        console.log(post)
+        post=await post.populate("user")
+        if(req.xhr){
+            // req.flash("success","Post created! ")
+            return res.status(200).json({
+                data:{
+                    post:post
+                },
+                message:"Post created !"
+            })
+        }
+
+        req.flash("success","Post created! ")
     } catch(err){
-        console.log("error occured in creating post ",err);
+        req.flash("error",err)
     }
     res.redirect("/")
-   
 }
 
 module.exports.deletePost=async function(req,res){
@@ -20,9 +30,23 @@ module.exports.deletePost=async function(req,res){
         if(post.user == req.user.id){    
             await post.deleteOne()
             await Comment.deleteMany({post:post._id})
+
+            if(req.xhr){
+                // req.flash("success","Post deleted")
+                return res.status(200).json({
+                    data:{
+                        post_id:req.params.id
+                    },
+                    message:"Post Deleted !"
+                })
+            }
+
+            req.flash("success","Post deleted")
+        } else{
+            req.flash("error","You are not authorized to delete post")
         } 
     } catch(err){
-        console.log("error in deleting post ",err)
+        req.flash("error",err)
     }
 
     res.redirect("back")
