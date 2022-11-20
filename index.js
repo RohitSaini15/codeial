@@ -12,6 +12,8 @@ const middleware=require("./config/middleware")
 const sassMiddleware=require("node-sass-middleware") //for sass or scss
 const flash=require("connect-flash")
 
+const path=require("path")
+
 const port=8000;
 
 app.use(sassMiddleware({
@@ -33,9 +35,18 @@ app.use(sassMiddleware({
 //     next()
 // }
 
+// function body(req,res,next){
+//     console.log(req.body)
+//     console.log(req.file)
+//     next()
+// }
+
 app.use(express.urlencoded())
+
 // app.use(cookieParser())
 app.use(express.static("./assets"))
+
+// app.use(body)
 
 //for layout.js
 app.use(expressLayouts)
@@ -66,6 +77,9 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 // app.use(middleware)
+
+// add a upload route so the user can access upload path
+app.use("/uploads",express.static(__dirname + "/uploads"))
 
 app.use(passport.setAuthenticatedUser);
 app.use(middleware.setFlash)

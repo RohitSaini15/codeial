@@ -1,6 +1,8 @@
+<img src="<%= individual_user.avatar %>" alt="<%= individual_user.name %>" width="100">
+
 <% if(user.id == individual_user.id) { %>
     
-    <form action="/users/update/<%= individual_user.id %>" method="POST">
+    <form action="/users/update/<%= individual_user.id %>" method="POST" enctype="multipart/form-data">
         <label for="name">Name</label>
         <input id="name" type="text" value= "<%= individual_user.name %>" name="name">
 
@@ -8,6 +10,8 @@
 
         <label for="email">Email</label>
         <input id="email" type="text" value= "<%= individual_user.email %>" name="email">
+
+        <input type="file" name="avatar">
 
         <br><br>
         <input type="submit" value="Update">
