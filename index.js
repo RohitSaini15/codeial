@@ -4,8 +4,11 @@ const app=express();
 const expressLayouts=require('express-ejs-layouts')
 const cookieParser=require('cookie-parser')
 const session=require("express-session");
+
 const passport=require("./config/passport-local-strategy")
 require("./config/passport-jwt-strategy")
+require("./config/passport-google-oauth-strategy")
+
 const mongoose=require('./config/mongoose')
 const MongoStore=require("connect-mongo")
 const middleware=require("./config/middleware")
