@@ -2,6 +2,8 @@ const e = require("connect-flash")
 const Comment=require("../models/comment")
 const Post=require("../models/post")
 
+const commentMailer = require("../mailers/comment_mailer")
+
 module.exports.createComment=async function(req,res){
 
     try{
@@ -14,6 +16,8 @@ module.exports.createComment=async function(req,res){
         await comment.populate("user")
 
         let result=await Post.updateOne({"_id":req.query.post_id},{"$push":{"comments":[comment._id]}})
+
+        commentMailer.newComment(comment)
 
         if(req.xhr){
             // req.flash("success","Comment created !")

@@ -1,6 +1,9 @@
 const express=require('express')
 const app=express();
 
+//load environment variables
+require("dotenv").config()
+
 const expressLayouts=require('express-ejs-layouts')
 const cookieParser=require('cookie-parser')
 const session=require("express-session");

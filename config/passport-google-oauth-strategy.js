@@ -4,8 +4,8 @@ const User = require("../models/user")
 const crypto = require("crypto")
 
 const opts = {
-    clientID: "899528709615-iv0idcqsg6oicffc2974ii8ss85fkcmn.apps.googleusercontent.com",
-    clientSecret: "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",
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
     callbackURL: "http://localhost:8000/users/auth/google/callback"
 }
 
