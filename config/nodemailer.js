@@ -14,6 +14,7 @@ let transporter = nodemailer.createTransport({
 })
 
 let renderTemplate = (data,relativePath)=>{
+    console.log("renderTemplate ",data)
     let mailHTML
     ejs.renderFile(path.join(__dirname,"../views/mailers",relativePath),data,(err,str)=>{
         if(err){console.log(`error occured in rendering new comment template ${err}`);return;}

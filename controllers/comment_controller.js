@@ -2,7 +2,9 @@ const e = require("connect-flash")
 const Comment=require("../models/comment")
 const Post=require("../models/post")
 
-const commentMailer = require("../mailers/comment_mailer")
+// const commentMailer = require("../mailers/comment_mailer")
+const queue = require("../config/kue")
+const commentEmailWorker = require("../workers/comment_email_worker")
 
 module.exports.createComment=async function(req,res){
 
@@ -17,7 +19,16 @@ module.exports.createComment=async function(req,res){
 
         let result=await Post.updateOne({"_id":req.query.post_id},{"$push":{"comments":[comment._id]}})
 
-        commentMailer.newComment(comment)
+        // commentMailer.newComment(comment)
+
+        let job = queue.create("emails",comment).save((err)=>{
+            if(err){
+                console.log(`error occured in creating job ${err}`)
+                return
+            }
+
+            console.log(`job id is ${job.id}`)
+        })
 
         if(req.xhr){
             // req.flash("success","Comment created !")

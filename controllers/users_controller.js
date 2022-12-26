@@ -72,3 +72,7 @@ module.exports.updateUser=async function(req,res){
         res.status(401).send("Unauthorised")
     }
 }
+
+module.exports.forgotPassword = function(req,res){
+    res.render("forgotpassword");
+}

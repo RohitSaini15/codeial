@@ -1,7 +1,6 @@
 const nodemailer = require("../config/nodemailer")
 
 exports.newComment = async (comment) => {
-    console.log(`sending mail ${comment}`)
     htmlText = nodemailer.renderTemplate({comment: comment},"/comment/new_comment.ejs")
 
     if(!htmlText){

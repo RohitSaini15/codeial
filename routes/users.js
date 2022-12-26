@@ -11,5 +11,6 @@ router.post('/createSession',passport.authenticate('local',{failureRedirect: "/a
 router.post('/update/:id',passport.checkAuthentication,userController.updateUser)
 router.get("/auth/google",passport.authenticate("google",{scope: ["email","profile"]}))
 router.get("/auth/google/callback",passport.authenticate("google",{failureRedirect: "/auth/signin"}),userController.createSession)
+router.get("/forgotpassword",userController.forgotPassword)
 
 module.exports=router

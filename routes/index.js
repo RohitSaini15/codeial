@@ -11,5 +11,6 @@ router.use('/auth',require('./auth'))
 router.use("/api",require("./api"))
 router.use("/post",require("./posts"))
 router.use("/comment",require("./comment"))
+router.use("/resetpassword",require("./resetPassword"))
 
 module.exports=router;
